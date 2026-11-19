@@ -67,7 +67,7 @@ so cache it for a day or more.
 ## What it does not show
 
 The API leaves out sole traders and farms (a person's name and address), phones and e-mails. A licence register
-(BNM's lenders) is not part of the `/companies/{idno}` answer; the statements, contracts and court lines are.
+(BNM's lenders) is not part of the `/companies/{idno}` answer. The statements, contracts and court lines are.
 
 ## Tests
 

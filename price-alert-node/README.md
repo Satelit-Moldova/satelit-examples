@@ -57,12 +57,12 @@ Each channel is used when its settings are present:
 | E-mail | `SMTP_HOST`, `SMTP_PORT` (465), `SMTP_TLS=1` (implicit TLS), `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`, `MAIL_TO` |
 
 Without any, the alert is only printed. An alert goes out when the price crosses under the target, and again only
-when it drops further; a failed channel is logged and the others still go.
+when it drops further. A failed channel is logged and the others still go.
 
 ## Credits
 
 2 credits per product per run (`/prices/items/{id}`), plus 3 once for each `query` to find it. Ten products checked
-four times a day: 80 credits a day. Shop prices change a few times a day at most; checking more often than hourly
+four times a day: 80 credits a day. Shop prices change a few times a day at most. Checking more often than hourly
 buys nothing.
 
 ## Schedule it
@@ -110,10 +110,10 @@ node --test                              # offline tests
 ## Troubleshooting
 
 - `nothing found for "…"`: try fewer words; `in_stock=true` leaves out products no shop has today.
-- `Satelit 429 rate_limited`: you run it too often; once an hour is plenty.
+- `Satelit 429 rate_limited`: you run it too often. Once an hour is plenty.
 - No e-mail: most providers want port 465 with `SMTP_TLS=1` and an app password.
 
 ## Pe scurt (română)
 
 Urmărește produse și trimite un mesaj (Slack, Discord, Telegram, e-mail) când prețul minim scade sub ținta ta.
-Starea stă în `state.json`; rulează din cron, systemd, Task Scheduler sau GitHub Actions. 2 credite pe produs.
+Starea stă în `state.json`. Rulează din cron, systemd, Task Scheduler sau GitHub Actions. 2 credite pe produs.

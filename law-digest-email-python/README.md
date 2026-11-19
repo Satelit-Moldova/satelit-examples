@@ -69,4 +69,4 @@ python -m unittest -v                    # offline tests
 ## Pe scurt (română)
 
 Un e-mail HTML zilnic cu actele publicate în Monitorul Oficial, cele importante primele. Doar biblioteca standard
-Python; SMTP din variabile de mediu; 2 credite pe zi.
+Python. SMTP din variabile de mediu; 2 credite pe zi.

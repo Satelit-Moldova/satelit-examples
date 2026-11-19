@@ -49,7 +49,7 @@ python hearings.py "moldtelecom" -o moldtelecom.ics
 
 Then import the file (Google Calendar: **Settings → Import**), or publish it at a URL your calendar subscribes to,
 and regenerate it daily. Each hearing has a stable `UID`, so a re-import updates events instead of doubling them.
-Times are in `Europe/Chisinau`; a hearing without an hour becomes an all-day entry.
+Times are in `Europe/Chisinau`. A hearing without an hour becomes an all-day entry.
 
 ## How the name is matched
 
@@ -59,7 +59,7 @@ hearings. Write the name as it appears in the cases (`iute credit`, `moldtelecom
 
 ## Credits
 
-A name: 6 (search 3 + the party's page 3). A case: 1. Agendas change during the day; a daily run is enough.
+A name: 6 (search 3 + the party's page 3). A case: 1. Agendas change during the day. A daily run is enough.
 
 ## Schedule it
 

@@ -36,12 +36,12 @@ export SATELIT_API_KEY=sat_live_...  WEBHOOK_URL=https://hooks.slack.com/service
 python track.py 12345/RD/2022
 ```
 
-Dossiers are written as people write them: `12345/RD/2022`, `12345/2022`; an order as `ordin 1054/P/2025` (shown,
+Dossiers are written as people write them: `12345/RD/2022`, `12345/2022`. An order as `ordin 1054/P/2025` (shown,
 not tracked: an order does not change). Many dossiers: one per line in a file, `python track.py --file dossiers.txt`.
 `WEBHOOK_URL` takes a Slack or Discord webhook or any endpoint that accepts JSON (`text` and `content` are both
 sent). Without it, changes are only printed.
 
-The first run only remembers; later runs report what moved. State: `state.json` (or `--state path`).
+The first run only remembers. Later runs report what moved. State: `state.json` (or `--state path`).
 
 ## Credits
 
@@ -70,4 +70,4 @@ Satelit reads ANC's lists as ANC publishes them, and says how fresh they are (`D
 ## Pe scurt (română)
 
 Urmărește dosarele de cetățenie română în listele ANC și trimite un mesaj când se schimbă starea, ordinul sau
-jurământul. 1 credit pe dosar; o rulare pe zi ajunge.
+jurământul. 1 credit pe dosar. O rulare pe zi ajunge.

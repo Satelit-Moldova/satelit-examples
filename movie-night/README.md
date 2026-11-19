@@ -52,7 +52,7 @@ node movie-night.js --city Chișinău --after 18:00
 
 | Option | |
 |---|---|
-| `--city` | `Chișinău`, `Bălți`; empty: every city |
+| `--city` | `Chișinău`, `Bălți`. Empty: every city |
 | `--after HH:MM` | sessions from this hour |
 | `--lang ro` | audio language of the session (`ro`, `ru`, `en`) |
 | `--genre` | part of a genre's name, in Romanian, any diacritics (`anim`, `comedie`, `SF`) |
@@ -68,7 +68,7 @@ Every Movies call costs 40 credits, so answers are cached on disk in `.cache/`:
 | the day's programme of a city | `/movies/cinemas/today` | 40 | 2 h |
 | a film's genres (only with `--genre`) | `/movies/titles/{id}` | 40 per film | 30 days |
 
-A first `--genre` run in Chișinău (9 films that day) costs about 40 + 7 × 40; every run in the next hours costs 0,
+A first `--genre` run in Chișinău (9 films that day) costs about 40 + 7 × 40. Every run in the next hours costs 0,
 and the genre cards serve the whole run of a film. When the API fails, the cached copy is shown.
 
 ## Schedule it

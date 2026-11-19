@@ -30,7 +30,7 @@ tools/call search_prices "lapte" -> 200
 ## Add it to your client
 
 Every client below connects over Streamable HTTP to the same URL. The first tool that needs an account opens
-Satelit's sign-in in the browser (OAuth); you approve the app once. No API key goes into these files.
+Satelit's sign-in in the browser (OAuth). You approve the app once. No API key goes into these files.
 
 **Project file `.mcp.json`** (read by command-line coding assistants that support project MCP config):
 
@@ -57,7 +57,7 @@ The same files are in [`configs/`](configs/).
 
 ## What you get, and what it costs
 
-`search_prices` answers a few times without signing in. Everything else needs a Satelit account; how much each
+`search_prices` answers a few times without signing in. Everything else needs a Satelit account. How much each
 tool returns depends on the account's plan (see the [MCP docs](https://developer.satelit.md/en/mcp/) and
 [pricing](https://developer.satelit.md/en/pricing/)). **MCP calls do not spend API credits.** For bulk data and
 automation, use the REST API (`/v1`) the other examples here use.
@@ -80,7 +80,7 @@ curl -s https://api.satelit.md/mcp -H 'Content-Type: application/json' -H 'Accep
 ## Tested with
 
 The protocol check ran live (Node 24.13.0, protocol 2025-06-18). The client config snippets were checked to parse
-and to point at the endpoint; they were not loaded into each client for this release.
+and to point at the endpoint. They were not loaded into each client for this release.
 
 ## Pe scurt (română)
 

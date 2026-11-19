@@ -33,7 +33,7 @@ Cineplex Balti (Bălți)
 • Cum să spargi o bancă: 14:00, 18:30, 20:50
 ```
 
-Real replies from the live run on 19 Nov 2026 (HTML tags removed here; Telegram shows them bold and italic).
+Real replies from the live run on 19 Nov 2026 (HTML tags removed here, Telegram shows them bold and italic).
 
 ## Commands
 
@@ -95,13 +95,13 @@ python -m unittest -v        # a fake Satelit API and a fake Bot API on 127.0.0.
 ## Troubleshooting
 
 - **"Datele nu sunt disponibile acum"**: the API answered an error and nothing was cached yet. The exact code is on
-  stderr (`satelit: 401 key_invalid: …`); see [errors](https://developer.satelit.md/en/errors/).
-- **The bot is silent in a group**: by default bots see only commands; that is all it needs. Check that no other
+  stderr (`satelit: 401 key_invalid: …`). See [errors](https://developer.satelit.md/en/errors/).
+- **The bot is silent in a group**: by default bots see only commands. That is all it needs. Check that no other
   process polls the same token (Telegram gives updates to one poller).
-- `/film` and `/cinema` cost 40 credits each when not cached; keep the TTLs if credits matter.
+- `/film` and `/cinema` cost 40 credits each when not cached. Keep the TTLs if credits matter.
 
 ## Pe scurt (română)
 
 Bot Telegram cu `/curs`, `/benzina`, `/cinema`, `/film`, `/pret`, `/stiri`. Un singur fișier Python, fără
-dependențe; răspunsurile stau în cache pe disc, deci costă puține credite. Pornește cu tokenul de la @BotFather și
+dependențe. Răspunsurile stau în cache pe disc, deci costă puține credite. Pornește cu tokenul de la @BotFather și
 cheia Satelit: `python bot.py`.

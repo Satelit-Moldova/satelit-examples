@@ -32,23 +32,23 @@ export SATELIT_API_KEY=sat_live_...
 go run . -listen 127.0.0.1:9418          # then open http://127.0.0.1:9418/metrics
 ```
 
-Requirements: Go (go.mod asks 1.22; tested with 1.27.0). Build a binary with `go build -o satelit-exporter .`.
+Requirements: Go (go.mod asks 1.22, tested with 1.27.0). Build a binary with `go build -o satelit-exporter .`.
 
 ## Metrics
 
 | Metric | Labels | Meaning |
 |---|---|---|
-| `satelit_fuel_price_lei` | `network`, `name`, `fuel` | pump price per litre; networks marked stale that day are left out |
+| `satelit_fuel_price_lei` | `network`, `name`, `fuel` | pump price per litre. Networks marked stale that day are left out |
 | `satelit_fuel_cap_lei` | `fuel` | ANRE's cap (a95, diesel) |
 | `satelit_fuel_min_lei` | `fuel` | lowest price among the networks |
 | `satelit_rate_mdl` | `code` | MDL for one unit (nominal already divided) |
 | `satelit_rate_change_7d_percent` | `code` | change over 7 days |
-| `satelit_up` | | 1 when the last refresh worked; on failure the old numbers stay and this drops to 0 |
+| `satelit_up` | | 1 when the last refresh worked. On failure the old numbers stay and this drops to 0 |
 | `satelit_credits_remaining` | | `X-Credits-Remaining` of the last answer |
 
 ## Caching and credits
 
-Prometheus may scrape every 15 s; the exporter asks Satelit at most once per `-refresh` (default `1h`): 2 credits
+Prometheus may scrape every 15 s. The exporter asks Satelit at most once per `-refresh` (default `1h`): 2 credits
 (`/fuel` 1 + `/rates` 1), so 48 a day. Fuel and rates change once a day; `-refresh 3h` is enough too. Every call
 has a 10 s timeout.
 
@@ -64,8 +64,8 @@ scrape_configs:
 ```
 
 Grafana → **Dashboards → New → Import** → upload [`grafana-dashboard.json`](grafana-dashboard.json) and pick your
-Prometheus data source. Panels: EUR, USD, lowest price of the chosen fuel, exporter health and credits; the fuel by
-network against ANRE's cap; the cheapest networks today; BNM rates; a sources note (keep it: BNM's licence asks for
+Prometheus data source. Panels: EUR, USD, lowest price of the chosen fuel, exporter health and credits. The fuel by
+network against ANRE's cap. The cheapest networks today. BNM rates. A sources note (keep it: BNM's licence asks for
 the line).
 
 ## Run it as a service
@@ -93,7 +93,7 @@ The dashboard was not imported into a running Grafana for this release.
 ## Troubleshooting
 
 - `satelit_up 0`: see the exporter's log line (`satelit: /fuel: 401 key_invalid`).
-- Empty graphs: the first points appear after Prometheus' first scrapes; the time series grows from the day you start.
+- Empty graphs: the first points appear after Prometheus' first scrapes. The time series grows from the day you start.
 
 ## Pe scurt (română)
 

@@ -64,7 +64,7 @@ SATELIT_API_KEY=sat_live_... node run-gs.js 'SATELIT_RATE("EUR")' 'SATELIT_PRICE
 
 - `#ERROR! Set SATELIT_API_KEY in Project Settings > Script Properties`: step 2.
 - `#ERROR! Satelit 401 key_invalid: …`: the key was revoked or mistyped.
-- A cell keeps an old number: use **Satelit → Refresh data**; Sheets only reruns a formula when its arguments change.
+- A cell keeps an old number: use **Satelit → Refresh data**. Sheets only reruns a formula when its arguments change.
 
 ## Pe scurt (română)
 

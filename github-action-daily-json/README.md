@@ -42,10 +42,10 @@ and the badges `data/badge-eur.svg` ("EUR (BNM) | 20.1411 MDL") and `data/badge-
 1. Copy `snapshot.js` to the root of your repository and `.github/workflows/daily.yml` to the same path there.
 2. **Settings → Secrets and variables → Actions → New repository secret**: `SATELIT_API_KEY`, your key from the
    [console](https://developer.satelit.md/en/console/).
-3. **Actions → Daily Satelit snapshot → Run workflow** once; after that it runs at 07:30 UTC every day.
+3. **Actions → Daily Satelit snapshot → Run workflow** once. After that it runs at 07:30 UTC every day.
 
 The workflow commits only when a number changed (`git diff --cached --quiet`), so weekends without new BNM rates
-leave no empty commits. The key lives only in the secret; the files hold no key.
+leave no empty commits. The key lives only in the secret. The files hold no key.
 
 ## Credits
 
@@ -66,7 +66,7 @@ Keep `attribution` next to the numbers wherever you show them, and the "Data: Sa
 node --test      # a fake API: both files, both badges, escaping
 ```
 
-The workflow file was checked to parse as YAML with the expected triggers and steps; it was run locally as
+The workflow file was checked to parse as YAML with the expected triggers and steps. It was run locally as
 `node snapshot.js` against the live API, not on GitHub's runners.
 
 ## Pe scurt (română)

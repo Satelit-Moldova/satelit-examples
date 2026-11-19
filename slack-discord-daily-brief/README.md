@@ -68,10 +68,10 @@ node --test                          # offline tests
 
 ## Troubleshooting
 
-- `webhook answered 404`: the webhook was deleted; make a new one.
-- `webhook answered 400 invalid_blocks` (Slack): a story title with odd characters; the text is escaped, so report it.
+- `webhook answered 404`: the webhook was deleted. Make a new one.
+- `webhook answered 400 invalid_blocks` (Slack): a story title with odd characters. The text is escaped, so report it.
 
 ## Pe scurt (română)
 
 Un mesaj de dimineață pe Slack sau Discord: cursul BNM, carburanții și cinci știri. Node, fără dependențe;
-4 credite pe rulare; pornește din cron sau GitHub Actions.
+4 credite pe rulare. Pornește din cron sau GitHub Actions.
