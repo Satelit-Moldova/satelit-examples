@@ -1,0 +1,79 @@
+# Offline checks of every example: no network, no secrets.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.13"]
+        example: [telegram-bot-python, law-digest-email-python, company-check-cli, citizenship-tracker, courts-hearings-calendar]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Syntax
+        run: python -m py_compile ${{ matrix.example }}/*.py
+      - name: Tests
+        working-directory: ${{ matrix.example }}
+        run: python -m unittest -v
+
+  node:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 24]
+        example: [google-sheets-apps-script, price-alert-node, slack-discord-daily-brief, movie-night, github-action-daily-json, ai-agent-mcp]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Syntax
+        working-directory: ${{ matrix.example }}
+        run: for f in *.js; do node --check "$f"; done
+      - name: Tests
+        working-directory: ${{ matrix.example }}
+        run: node --test
+
+  go:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: fuel-prometheus-go
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+      - name: gofmt
+        run: test -z "$(gofmt -l .)"
+      - run: go vet ./...
+      - run: go test ./...
+
+  templates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Workflow templates parse as YAML
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 - <<'PY'
+          import json, yaml
+          for f in ["github-action-daily-json/.github/workflows/daily.yml", "price-alert-node/github-actions.yml", ".github/workflows/ci.yml"]:
+              doc = yaml.safe_load(open(f, encoding="utf-8"))
+              assert doc.get("jobs"), f
+              print("ok", f)
+          for f in ["fuel-prometheus-go/grafana-dashboard.json", "google-sheets-apps-script/appsscript.json",
+                    "ai-agent-mcp/configs/.mcp.json", "ai-agent-mcp/configs/.cursor/mcp.json", "ai-agent-mcp/configs/.vscode/mcp.json"]:
+              json.load(open(f, encoding="utf-8"))
+              print("ok", f)
+          PY

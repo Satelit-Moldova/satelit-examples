@@ -1,0 +1,116 @@
+{
+  "title": "Moldova: fuel and BNM rates (Satelit)",
+  "uid": "satelit-fuel-rates",
+  "tags": ["satelit", "moldova", "fuel", "rates"],
+  "timezone": "Europe/Chisinau",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "time": { "from": "now-30d", "to": "now" },
+  "refresh": "1h",
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "label": "Prometheus",
+        "type": "datasource",
+        "query": "prometheus"
+      },
+      {
+        "name": "fuel",
+        "label": "Fuel",
+        "type": "custom",
+        "query": "a95,diesel,lpg",
+        "current": { "text": "a95", "value": "a95" },
+        "options": [
+          { "text": "a95", "value": "a95", "selected": true },
+          { "text": "diesel", "value": "diesel", "selected": false },
+          { "text": "lpg", "value": "lpg", "selected": false }
+        ]
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "EUR (BNM)",
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": { "defaults": { "unit": "none", "decimals": 4 }, "overrides": [] },
+      "targets": [{ "refId": "A", "expr": "satelit_rate_mdl{code=\"EUR\"}", "legendFormat": "EUR" }]
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "USD (BNM)",
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": { "defaults": { "unit": "none", "decimals": 4 }, "overrides": [] },
+      "targets": [{ "refId": "A", "expr": "satelit_rate_mdl{code=\"USD\"}", "legendFormat": "USD" }]
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Lowest $fuel price, lei",
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": { "defaults": { "unit": "none", "decimals": 2 }, "overrides": [] },
+      "targets": [{ "refId": "A", "expr": "satelit_fuel_min_lei{fuel=\"$fuel\"}", "legendFormat": "lowest" }]
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Exporter up / credits left",
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "targets": [
+        { "refId": "A", "expr": "satelit_up", "legendFormat": "up" },
+        { "refId": "B", "expr": "satelit_credits_remaining", "legendFormat": "credits" }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "$fuel by network, lei per litre",
+      "gridPos": { "h": 10, "w": 16, "x": 0, "y": 5 },
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": { "defaults": { "unit": "none", "decimals": 2 }, "overrides": [] },
+      "targets": [
+        { "refId": "A", "expr": "bottomk(10, satelit_fuel_price_lei{fuel=\"$fuel\"})", "legendFormat": "{{name}}" },
+        { "refId": "B", "expr": "satelit_fuel_cap_lei{fuel=\"$fuel\"}", "legendFormat": "ANRE cap" }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "bargauge",
+      "title": "Cheapest networks today ($fuel)",
+      "gridPos": { "h": 10, "w": 8, "x": 16, "y": 5 },
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "options": { "orientation": "horizontal", "displayMode": "basic" },
+      "fieldConfig": { "defaults": { "unit": "none", "decimals": 2 }, "overrides": [] },
+      "targets": [
+        { "refId": "A", "expr": "bottomk(8, satelit_fuel_price_lei{fuel=\"$fuel\"})", "legendFormat": "{{name}}", "instant": true }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "BNM rates, MDL",
+      "gridPos": { "h": 9, "w": 16, "x": 0, "y": 15 },
+      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "fieldConfig": { "defaults": { "unit": "none", "decimals": 4 }, "overrides": [] },
+      "targets": [{ "refId": "A", "expr": "satelit_rate_mdl{code=~\"EUR|USD|RON|UAH\"}", "legendFormat": "{{code}}" }]
+    },
+    {
+      "id": 8,
+      "type": "text",
+      "title": "Sources",
+      "gridPos": { "h": 9, "w": 8, "x": 16, "y": 15 },
+      "options": {
+        "mode": "markdown",
+        "content": "Rates: Sursa: Banca Națională a Moldovei, bnm.md, CC BY 4.0.\n\nFuel: ANRE, through the networks' reports.\n\nData: [Satelit](https://satelit.md)"
+      }
+    }
+  ]
+}

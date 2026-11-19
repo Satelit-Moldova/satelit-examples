@@ -1,0 +1,14 @@
+# keys and local settings
+.env
+*.env
+!*.env.example
+# caches and state written by the examples
+.cache/
+state.json
+out/
+__pycache__/
+*.pyc
+node_modules/
+# build output
+fuel-prometheus-go/satelit-exporter
+fuel-prometheus-go/satelit-exporter.exe

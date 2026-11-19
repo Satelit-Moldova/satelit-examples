@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "satelit": {
+      "type": "http",
+      "url": "https://api.satelit.md/mcp"
+    }
+  }
+}

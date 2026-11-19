@@ -1,0 +1,40 @@
+# Copy this file to .github/workflows/daily.yml in your own repository, with snapshot.js at its root.
+# Add the key once: Settings > Secrets and variables > Actions > New repository secret, SATELIT_API_KEY.
+name: Daily Satelit snapshot
+
+on:
+  schedule:
+    - cron: "30 7 * * *" # 07:30 UTC = 09:30 or 10:30 in Chișinău, after BNM's morning rates
+  workflow_dispatch: {}
+
+permissions:
+  contents: write # to commit data/
+
+concurrency:
+  group: satelit-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch rates and fuel
+        run: node snapshot.js data
+        env:
+          SATELIT_API_KEY: ${{ secrets.SATELIT_API_KEY }}
+      - name: Commit when something changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "No change today."
+          else
+            git commit -m "data: snapshot $(date -u +%F)"
+            git push
+          fi

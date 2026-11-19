@@ -1,0 +1,28 @@
+# Copy to .github/workflows/price-alert.yml in your repository, with watch.js and watchlist.json at its root.
+# Secrets: SATELIT_API_KEY and the channel you use (SLACK_WEBHOOK_URL, ...).
+name: Price alert
+
+on:
+  schedule:
+    - cron: "0 6,10,14,18 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # state.json survives between runs in the cache: a new key each run, restored from the newest.
+      - uses: actions/cache@v4
+        with:
+          path: state.json
+          key: price-alert-state-${{ github.run_id }}
+          restore-keys: price-alert-state-
+      - run: node watch.js
+        env:
+          SATELIT_API_KEY: ${{ secrets.SATELIT_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
